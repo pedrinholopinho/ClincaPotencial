@@ -110,7 +110,7 @@ const Header = () => {
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   sx={{ height: 140 }}
-                  image={service.image} // A imagem do serviço
+                  image={service.image} // A imagem do serviçoo
                   title={service.title} // O título do serviço
                 />
                 <CardContent>
