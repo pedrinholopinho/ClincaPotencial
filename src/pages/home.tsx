@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Typography, Grid, Card, CardContent, CardActions, CardMedia } from "@mui/material";
+import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Typography, Container} from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../global.css";
+import RecipeCards from "./RecipeCards";
+
+
 
 // Simulação dos dados dos serviços
 const services = [
-  { title: "Serviço 1", description: "Descrição do serviço 1", image: "https://via.placeholder.com/345x140?text=Serviço+1" },
-  { title: "Serviço 2", description: "Descrição do serviço 2", image: "https://via.placeholder.com/345x140?text=Serviço+2" },
-  { title: "Serviço 3", description: "Descrição do serviço 3", image: "https://via.placeholder.com/345x140?text=Serviço+3" },
-  { title: "Serviço 4", description: "Descrição do serviço 4", image: "https://via.placeholder.com/345x140?text=Serviço+4" },
-  { title: "Serviço 5", description: "Descrição do serviço 5", image: "https://via.placeholder.com/345x140?text=Serviço+5" },
-  { title: "Serviço 6", description: "Descrição do serviço 6", image: "https://via.placeholder.com/345x140?text=Serviço+6" },
-  { title: "Serviço 7", description: "Descrição do serviço 7", image: "https://via.placeholder.com/345x140?text=Serviço+7" },
-  { title: "Serviço 8", description: "Descrição do serviço 8", image: "https://via.placeholder.com/345x140?text=Serviço+8" },
+  { title: "Serviço 1", description: "Descrição do serviço 1", image: "https://via.placeholder.com/345x140?text=Serviço+1",descDetalhes: "Descrição detalhada do serviço 1" },
+  { title: "Serviço 2", description: "Descrição do serviço 2", image: "https://via.placeholder.com/345x140?text=Serviço+2",descDetalhes: "Descrição detalhada do serviço 2"},
+  { title: "Serviço 3", description: "Descrição do serviço 3", image: "https://via.placeholder.com/345x140?text=Serviço+3",descDetalhes: "Descrição detalhada do serviço 3" },
+  { title: "Serviço 4", description: "Descrição do serviço 4", image: "https://via.placeholder.com/345x140?text=Serviço+4",descDetalhes: "Descrição detalhada do serviço 4"},
+  { title: "Serviço 5", description: "Descrição do serviço 5", image: "https://via.placeholder.com/345x140?text=Serviço+5",descDetalhes: "Descrição detalhada do serviço 5"},
+  { title: "Serviço 6", description: "Descrição do serviço 6", image: "https://via.placeholder.com/345x140?text=Serviço+6",descDetalhes: "Descrição detalhada do serviço 6"},
+  { title: "Serviço 7", description: "Descrição do serviço 7", image: "https://via.placeholder.com/345x140?text=Serviço+7",descDetalhes: "Descrição detalhada do serviço 7"},
+  { title: "Serviço 8", description: "Descrição do serviço 8", image: "https://via.placeholder.com/345x140?text=Serviço+8",descDetalhes: "Descrição detalhada do serviço 8" },
 ];
 
 const Header = () => {
@@ -93,20 +96,22 @@ const Header = () => {
           marginTop: "100px",
           padding: 0,
           boxSizing: "border-box", // Inclui as bordas no cálculo
+          marginBottom:'50px'
         }}
       >
         <Typography variant="h5">Carrossel de fotos</Typography>
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
-          marginTop: "50px", // Espaçamento entre o carrossel e os cardss
+          marginTop: "1px", // Espaçamento entre o carrossel e os cardss
           padding: 2,
+          backgroundColor: 'black',
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} gap={0}>
           {services.map((service, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid item xs={12} sm={6} md={3} key={index} sx={{backgroundColor: 'red'}}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   sx={{ height: 140 }}
@@ -115,10 +120,10 @@ const Header = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {service.title} {/* Título do serviço */}
+                    {service.title} {/* Título do serviço 
                   </Typography>
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {service.description} {/* Descrição do serviço */}
+                    {service.description} {/* Descrição do serviço 
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -129,9 +134,16 @@ const Header = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Box> */}
 
-     
+      
+      <Container sx={{display:"flex", justifyContent:"space-between"}}>
+        <Box sx={{display:"flex", justifyContent:"space-between"}}>
+          <RecipeCards data={services}/>
+        </Box>   
+      </Container>
+
+      
     </>
   );
 };
