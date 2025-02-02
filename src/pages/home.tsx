@@ -1,26 +1,32 @@
-import React, { useState } from "react";
-import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Typography, Container} from "@mui/material";
+import React, { useState, useRef } from "react";
+import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Container, Card, CardContent, Typography, Grid } from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../global.css";
-import RecipeCards from "./RecipeCards";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-
+// Importe as imagens da pasta assets/images
+import teste from "../assets/images/teste.jpeg";
+import teste2 from "../assets/images/teste2.jpeg";
 
 // Simulação dos dados dos serviços
 const services = [
-  { title: "Serviço 1", description: "Descrição do serviço 1", image: "https://via.placeholder.com/345x140?text=Serviço+1",descDetalhes: "Descrição detalhada do serviço 1" },
-  { title: "Serviço 2", description: "Descrição do serviço 2", image: "https://via.placeholder.com/345x140?text=Serviço+2",descDetalhes: "Descrição detalhada do serviço 2"},
-  { title: "Serviço 3", description: "Descrição do serviço 3", image: "https://via.placeholder.com/345x140?text=Serviço+3",descDetalhes: "Descrição detalhada do serviço 3" },
-  { title: "Serviço 4", description: "Descrição do serviço 4", image: "https://via.placeholder.com/345x140?text=Serviço+4",descDetalhes: "Descrição detalhada do serviço 4"},
-  { title: "Serviço 5", description: "Descrição do serviço 5", image: "https://via.placeholder.com/345x140?text=Serviço+5",descDetalhes: "Descrição detalhada do serviço 5"},
-  { title: "Serviço 6", description: "Descrição do serviço 6", image: "https://via.placeholder.com/345x140?text=Serviço+6",descDetalhes: "Descrição detalhada do serviço 6"},
-  { title: "Serviço 7", description: "Descrição do serviço 7", image: "https://via.placeholder.com/345x140?text=Serviço+7",descDetalhes: "Descrição detalhada do serviço 7"},
-  { title: "Serviço 8", description: "Descrição do serviço 8", image: "https://via.placeholder.com/345x140?text=Serviço+8",descDetalhes: "Descrição detalhada do serviço 8" },
+  { title: "Produção de Vídeo", description: "Nial purus em mollis nunc sed id semper. Rhoncus ceneam vel elit scelerisque mauris.", icon: "🎥" },
+  { title: "Clientes Felizes", description: "Nial purus em mollis nunc sed id semper. Rhoncus ceneam vel elit scelerisque mauris.", icon: "😊" },
+  { title: "Otimização de SEO", description: "Nunc consequat interdum varius sit amet mattis vulputate enim nulla. Risus feugiat.", icon: "🔍" },
+  { title: "Estratégia de Marketing", description: "Nial purus em mollis nunc sed id semper. Rhoncus ceneam vel elit scelerisque mauris.", icon: "📈" },
+  { title: "Soluções em Nuvem", description: "Nial purus em mollis nunc sed id semper. Rhoncus ceneam vel elit scelerisque mauris.", icon: "☁️" },
+  { title: "Podcast Talks", description: "Nial purus em mollis nunc sed id semper. Rhoncus ceneam vel elit scelerisque mauris.", icon: "🎙️" },
 ];
 
 const Header = () => {
   const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+
+  // Ref para a seção de serviços
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   const openMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorNav(event.currentTarget);
@@ -30,56 +36,148 @@ const Header = () => {
     setAnchorNav(null);
   };
 
+  const handleExpandCard = (index: number) => {
+    setExpandedCard(expandedCard === index ? null : index);
+  };
+
+  // Função para rolar até a seção de serviços
+  const scrollToServices = () => {
+    if (servicesRef.current) {
+      servicesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Configurações do carrossel
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+  };
+
+  // Use as imagens importadas (teste.jpeg e teste2.jpeg)
+  const carouselImages = [teste, teste2];
+
   return (
     <>
       {/* Header */}
       <AppBar
-        position="fixed" // Fixa o AppBar no topo
-        sx={{ top: 0, left: 0, right: 0, backgroundColor: "green", minHeight: "100px" }} // Garante que ocupe todo o topo
+        position="fixed"
+        sx={{
+          top: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: "transparent",
+          backgroundImage: "linear-gradient(to right, #1976d2, #2196f3)", // Gradiente azul
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra suave
+          minHeight: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <Toolbar sx={{ display: "flex", alignItems: "center" }}>
-          <IconButton sx={{ marginTop: 3, display: { xs: "none", md: "flex" } }}>
-            <GroupsIcon />
-          </IconButton>
-          <Box
-            sx={{
-              justifyContent: "flex-end",
-              flexGrow: 1,
-              alignItems: "center",
-              marginTop: 3,
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">Serviços</Button>
-            <Button color="inherit">Equipe</Button>
-            <Button color="inherit">Contato</Button>
+        <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          {/* Logo ou Ícone */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton sx={{ color: "white", display: { xs: "none", md: "flex" } }}>
+              <GroupsIcon sx={{ fontSize: "2rem" }} /> {/* Ícone moderno */}
+            </IconButton>
+            <Typography
+              variant="h6"
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                ml: 2,
+                display: { xs: "none", md: "block" },
+              }}
+            >
+              Nome da Empresa
+            </Typography>
           </Box>
 
+          {/* Menu para Desktop */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              gap: 4, // Espaçamento entre os botões
+            }}
+          >
+            <Button
+              color="inherit"
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)", // Efeito hover suave
+                },
+              }}
+            >
+              Home
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+              }}
+              onClick={scrollToServices} // Adiciona a função de rolagem
+            >
+              Serviços
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+              }}
+            >
+              Equipe
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+              }}
+            >
+              Contato
+            </Button>
+          </Box>
+
+          {/* Menu para Mobile */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               onClick={openMenu}
-              sx={{ marginTop: 3 }}
+              sx={{ color: "white" }}
             >
               <MenuIcon />
             </IconButton>
 
             <Menu open={Boolean(anchorNav)} onClose={closeMenu}>
               <MenuList>
-                <MenuItem>Home</MenuItem>
-                <MenuItem>Serviços</MenuItem>
-                <MenuItem>Equipe</MenuItem>
-                <MenuItem>Contato</MenuItem>
+                <MenuItem onClick={closeMenu}>Home</MenuItem>
+                <MenuItem onClick={() => { closeMenu(); scrollToServices(); }}>Serviços</MenuItem>
+                <MenuItem onClick={closeMenu}>Equipe</MenuItem>
+                <MenuItem onClick={closeMenu}>Contato</MenuItem>
               </MenuList>
             </Menu>
           </Box>
-
-          <IconButton sx={{ marginTop: 3, display: { xs: "flex", md: "none" } }}>
-            <GroupsIcon />
-          </IconButton>
         </Toolbar>
       </AppBar>
 
@@ -95,55 +193,77 @@ const Header = () => {
           alignItems: "center",
           marginTop: "100px",
           padding: 0,
-          boxSizing: "border-box", // Inclui as bordas no cálculo
-          marginBottom:'50px'
+          boxSizing: "border-box",
+          marginBottom: "50px",
+          overflow: "hidden",
         }}
       >
-        <Typography variant="h5">Carrossel de fotos</Typography>
+        {/* Carrossel de fotos */}
+        <Box sx={{ width: "100%", height: "100%" }}>
+          <Slider {...carouselSettings}>
+            {carouselImages.map((image, index) => (
+              <Box key={index} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <img
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  style={{ width: "100%", height: "600px", objectFit: "cover", borderRadius: "8px" }}
+                />
+              </Box>
+            ))}
+          </Slider>
+        </Box>
       </Box>
 
-      {/* <Box
-        sx={{
-          marginTop: "1px", // Espaçamento entre o carrossel e os cardss
-          padding: 2,
-          backgroundColor: 'black',
-        }}
-      >
-        <Grid container spacing={2} gap={0}>
+      {/* Seção de Serviços */}
+      <Container ref={servicesRef} sx={{ py: 8 }}> {/* Adiciona a ref aqui */}
+        <Typography variant="h3" align="center" sx={{ fontWeight: "bold", mb: 8, color: "#333" }}>
+          Nossos Serviços
+        </Typography>
+        <Grid container spacing={8}> {/* Espaçamento entre os cards aumentado para 8 */}
           {services.map((service, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index} sx={{backgroundColor: 'red'}}>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image={service.image} // A imagem do serviçoo
-                  title={service.title} // O título do serviço
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {service.title} {/* Título do serviço 
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                sx={{
+                  height: "400px", // Aumentei a altura do card
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: 3,
+                  transition: "transform 0.3s",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                  },
+                  backgroundColor: "#f9f9f9",
+                }}
+              >
+                <CardContent sx={{ flexGrow: 1, textAlign: "center", padding: 3 }}>
+                  <Typography variant="h4" sx={{ mb: 3 }}>
+                    {service.icon}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {service.description} {/* Descrição do serviço 
+                  <Typography variant="h5" component="h2" sx={{ fontWeight: "bold", mb: 3 }}>
+                    {service.title}
                   </Typography>
+                  <Typography variant="body1" sx={{ mb: 3 }}>
+                    {service.description}
+                  </Typography>
+                  {expandedCard === index && (
+                    <Typography variant="body2" sx={{ mb: 3 }}>
+                      Mais detalhes sobre o serviço...
+                    </Typography>
+                  )}
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ mt: 3 }}
+                    onClick={() => handleExpandCard(index)}
+                  >
+                    {expandedCard === index ? "Ver Menos" : "Saiba Mais"}
+                  </Button>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Compartilhar</Button>
-                  <Button size="small">Saiba Mais</Button>
-                </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
-      </Box> */}
-
-      
-      <Container sx={{display:"flex", justifyContent:"space-between"}}>
-        <Box sx={{display:"flex", justifyContent:"space-between"}}>
-          <RecipeCards data={services}/>
-        </Box>   
       </Container>
-
-      
     </>
   );
 };
