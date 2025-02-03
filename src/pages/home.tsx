@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef} from "react";
 import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Card, CardContent, Typography, Grid } from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -10,14 +10,12 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import './scroll.css';
 import Footer from "../pages/footer";
-
+import Equipe from "./equipe";
 
 // Importe as imagens da pasta assets/images
 import teste from "../assets/images/teste.jpeg";
 import teste2 from "../assets/images/teste2.jpeg";
-import feedback from "../assets/images/feedback.png";
 import recepp from "../assets/images/recepp.png";
-
 
 // Simulação dos dados dos serviços
 const services = [
@@ -89,7 +87,7 @@ const Header = () => {
   const carouselImages = [teste, teste2, recepp];
 
   return (
-    <><Box sx={{ overflowX: "hidden" }}>
+    <Box sx={{ overflowX: "hidden" }}>
       {/* Header */}
       <AppBar
         position="fixed"
@@ -378,35 +376,11 @@ const Header = () => {
           ))}
         </Grid>
       </Box>
-
       {/* Seção da Equipe */}
-      <Box
-        ref={teamRef}
-        sx={{
-          width: "100%", // Alterado de 100vw para 100%
-          height: "100vh",
-          backgroundColor: "#f3f3f3",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        <img
-          src={feedback}
-          alt="Nossa Equipe"
-          style={{
-            width: "100%", // Alterado de 100vw para 100%
-            height: "100vh",
-            objectFit: "cover",
-            transform: "scale(0.6)", // Ajuste o valor para diminuir ou aumentar o zoom
-          }} />
-      </Box>
+      <Equipe ref={teamRef} />
+      {/* Seção do footer */}
+      <Footer />
     </Box>
-        <>
-        <Footer />
-      </></>
-    
   );
 };
 
