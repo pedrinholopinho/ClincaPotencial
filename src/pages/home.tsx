@@ -17,7 +17,7 @@ import teste from "../assets/images/teste.jpeg";
 import teste2 from "../assets/images/teste2.jpeg";
 import feedback from "../assets/images/feedback.png"; // Importe a imagem feedback.png
 import recepp from "/src/assets/images/recepp.png";
-import { ReceiptSharp } from "@mui/icons-material";
+
 
 // Simulação dos dados dos serviços
 const services = [
