@@ -28,3 +28,7 @@ html, body {
 * {
   box-sizing: border-box; /* Isso garante que o padding e a borda não aumentem o tamanho dos elementos */
 }
+
+img {
+  border-radius: 0 !important;
+}

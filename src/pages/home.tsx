@@ -9,11 +9,15 @@ import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import './scroll.css';
+import Footer from "../pages/footer";
+
 
 // Importe as imagens da pasta assets/images
 import teste from "../assets/images/teste.jpeg";
 import teste2 from "../assets/images/teste2.jpeg";
 import feedback from "../assets/images/feedback.png"; // Importe a imagem feedback.png
+import recepp from "/src/assets/images/recepp.png";
+import { ReceiptSharp } from "@mui/icons-material";
 
 // Simulação dos dados dos serviços
 const services = [
@@ -82,10 +86,10 @@ const Header = () => {
   };
 
   // Use as imagens importadas (teste.jpeg e teste2.jpeg)
-  const carouselImages = [teste, teste2];
+  const carouselImages = [teste, teste2, recepp];
 
   return (
-    <Box sx={{ overflowX: "hidden" }}>
+    <><Box sx={{ overflowX: "hidden" }}>
       {/* Header */}
       <AppBar
         position="fixed"
@@ -217,7 +221,7 @@ const Header = () => {
             >
               <MenuList>
                 <MenuItem
-                  onClick={() => { closeMenu(); scrollToCarousel(); }} // Adicionado aqui
+                  onClick={() => { closeMenu(); scrollToCarousel(); } } // Adicionado aqui
                   sx={{
                     fontFamily: "'Poppins', sans-serif",
                     fontWeight: 600,
@@ -229,7 +233,7 @@ const Header = () => {
                   Home
                 </MenuItem>
                 <MenuItem
-                  onClick={() => { closeMenu(); scrollToServices(); }}
+                  onClick={() => { closeMenu(); scrollToServices(); } }
                   sx={{
                     fontFamily: "'Poppins', sans-serif",
                     fontWeight: 600,
@@ -241,7 +245,7 @@ const Header = () => {
                   Serviços
                 </MenuItem>
                 <MenuItem
-                  onClick={() => { closeMenu(); scrollToTeam(); }}
+                  onClick={() => { closeMenu(); scrollToTeam(); } }
                   sx={{
                     fontFamily: "'Poppins', sans-serif",
                     fontWeight: 600,
@@ -275,8 +279,8 @@ const Header = () => {
         ref={carouselRef} // Ref associada ao carrossel
         sx={{
           width: "100%",
-          height: "800px", // Aumentei a altura para 800px
-          borderRadius: "8px",
+          height: { xs: "300px", sm: "400px", md: "500px", lg: "600px" }, // Altura responsiva
+          borderRadius: "0px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -295,7 +299,7 @@ const Header = () => {
                 <img
                   src={image}
                   alt={`Slide ${index + 1}`}
-                  style={{ width: "100%", height: "800px", objectFit: "cover", borderRadius: "8px" }} // Ajustei a altura para 800px
+                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} // Ajustei a altura para 100%
                 />
               </Box>
             ))}
@@ -396,96 +400,13 @@ const Header = () => {
             height: "100vh",
             objectFit: "cover",
             transform: "scale(0.6)", // Ajuste o valor para diminuir ou aumentar o zoom
-          }}
-        />
-      </Box>
-
-      {/* Footer */}
-      <Box
-        sx={{
-          width: "100%",
-          backgroundColor: "var(--dark-primary)",
-          color: "var(--white)",
-          padding: "40px 20px",
-          textAlign: "center",
-          borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-        }}
-      >
-        {/* Contato com WhatsApp */}
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-            Entre em contato conosco:
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 1,
-            }}
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-              alt="WhatsApp"
-              style={{ width: "24px", height: "24px" }}
-            />
-            <Typography variant="body1">
-              <a
-                href="https://wa.me/5521983839914"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--white)", textDecoration: "none" }}
-              >
-                (21) 98383-9914
-              </a>
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Redes Sociais */}
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-            Siga-nos nas redes sociais:
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 3,
-            }}
-          >
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                alt="Facebook"
-                style={{ width: "32px", height: "32px" }}
-              />
-            </a>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                alt="Instagram"
-                style={{ width: "32px", height: "32px" }}
-              />
-            </a>
-          </Box>
-        </Box>
-
-        {/* Créditos */}
-        <Typography variant="body2" sx={{ opacity: 0.8 }}>
-          Desenvolvido por © Pedro Lopes :)
-        </Typography>
+          }} />
       </Box>
     </Box>
+        <>
+        <Footer />
+      </></>
+    
   );
 };
 
