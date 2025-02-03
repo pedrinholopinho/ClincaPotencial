@@ -15,8 +15,8 @@ import Footer from "../pages/footer";
 // Importe as imagens da pasta assets/images
 import teste from "../assets/images/teste.jpeg";
 import teste2 from "../assets/images/teste2.jpeg";
-import feedback from "../assets/images/feedback.png"; // Importe a imagem feedback.png
-import recepp from "/src/assets/images/recepp.png";
+import feedback from "../assets/images/feedback.png";
+import recepp from "../assets/images/recepp.png";
 
 
 // Simulação dos dados dos serviços
