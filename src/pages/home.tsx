@@ -1,15 +1,19 @@
 import React, { useState, useRef } from "react";
-import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Container, Card, CardContent, Typography, Grid } from "@mui/material";
+import { AppBar, Button, IconButton, Toolbar, Box, Menu, MenuList, MenuItem, Card, CardContent, Typography, Grid } from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../global.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import './scroll.css';
 
 // Importe as imagens da pasta assets/images
 import teste from "../assets/images/teste.jpeg";
 import teste2 from "../assets/images/teste2.jpeg";
+import feedback from "../assets/images/feedback.png"; // Importe a imagem feedback.png
 
 // Simulação dos dados dos serviços
 const services = [
@@ -27,6 +31,8 @@ const Header = () => {
 
   // Ref para a seção de serviços
   const servicesRef = useRef<HTMLDivElement>(null);
+  const teamRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null); // Ref para o carrossel
 
   const openMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorNav(event.currentTarget);
@@ -47,23 +53,39 @@ const Header = () => {
     }
   };
 
+  // Função para rolar até a seção da equipe
+  const scrollToTeam = () => {
+    if (teamRef.current) {
+      teamRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Função para rolar até o carrossel
+  const scrollToCarousel = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   // Configurações do carrossel
   const carouselSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
+    prevArrow: <ArrowBackIosIcon sx={{ color: "var(--white)", fontSize: "3rem", left: "20px", zIndex: 1 }} />,
+    nextArrow: <ArrowForwardIosIcon sx={{ color: "var(--white)", fontSize: "3rem", right: "20px", zIndex: 1 }} />,
   };
 
   // Use as imagens importadas (teste.jpeg e teste2.jpeg)
   const carouselImages = [teste, teste2];
 
   return (
-    <>
+    <Box sx={{ overflowX: "hidden" }}>
       {/* Header */}
       <AppBar
         position="fixed"
@@ -71,31 +93,25 @@ const Header = () => {
           top: 0,
           left: 0,
           right: 0,
-          backgroundColor: "transparent",
-          backgroundImage: "linear-gradient(to right, #1976d2, #2196f3)", // Gradiente azul
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra suave
+          backgroundColor: "var(--transparent)",
+          backgroundImage: `linear-gradient(to right, var(--dark-primary), var(--dark))`,
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
           minHeight: "100px",
           display: "flex",
           justifyContent: "center",
+          transition: "var(--transition)",
+          "&:hover": {
+            backgroundImage: `linear-gradient(to right, var(--dark-primary), var(--light-dark))`,
+          },
         }}
       >
-        <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: "var(--container-width-lg)", margin: "0 auto", width: "100%" }}>
           {/* Logo ou Ícone */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton sx={{ color: "white", display: { xs: "none", md: "flex" } }}>
-              <GroupsIcon sx={{ fontSize: "2rem" }} /> {/* Ícone moderno */}
+          <Box sx={{ display: "flex", alignItems: "center", "&:hover": { transform: "scale(1.05)", transition: "transform 0.3s ease" } }}>
+            <IconButton sx={{ color: "var(--white)", display: { xs: "none", md: "flex" } }}>
+              <GroupsIcon sx={{ fontSize: "2rem" }} />
             </IconButton>
-            <Typography
-              variant="h6"
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                ml: 2,
-                display: { xs: "none", md: "block" },
-              }}
-            >
-              Nome da Empresa
-            </Typography>
           </Box>
 
           {/* Menu para Desktop */}
@@ -103,53 +119,71 @@ const Header = () => {
             sx={{
               display: { xs: "none", md: "flex" },
               alignItems: "center",
-              gap: 4, // Espaçamento entre os botões
+              gap: 4,
             }}
           >
             <Button
               color="inherit"
               sx={{
-                color: "white",
-                fontWeight: "bold",
+                color: "var(--white)",
+                fontWeight: 600,
+                textTransform: "none",
+                fontSize: "1rem",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)", // Efeito hover suave
+                  color: "var(--secondary)",
+                  transform: "translateY(-2px)",
+                  transition: "var(--transition)",
                 },
               }}
+              onClick={scrollToCarousel} // Adicionado aqui
             >
               Home
             </Button>
             <Button
               color="inherit"
               sx={{
-                color: "white",
-                fontWeight: "bold",
+                color: "var(--white)",
+                fontWeight: 600,
+                textTransform: "none",
+                fontSize: "1rem",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: "var(--secondary)",
+                  transform: "translateY(-2px)",
+                  transition: "var(--transition)",
                 },
               }}
-              onClick={scrollToServices} // Adiciona a função de rolagem
+              onClick={scrollToServices}
             >
               Serviços
             </Button>
             <Button
               color="inherit"
               sx={{
-                color: "white",
-                fontWeight: "bold",
+                color: "var(--white)",
+                fontWeight: 600,
+                textTransform: "none",
+                fontSize: "1rem",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: "var(--secondary)",
+                  transform: "translateY(-2px)",
+                  transition: "var(--transition)",
                 },
               }}
+              onClick={scrollToTeam}
             >
               Equipe
             </Button>
             <Button
               color="inherit"
               sx={{
-                color: "white",
-                fontWeight: "bold",
+                color: "var(--white)",
+                fontWeight: 600,
+                textTransform: "none",
+                fontSize: "1rem",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: "var(--secondary)",
+                  transform: "translateY(-2px)",
+                  transition: "var(--transition)",
                 },
               }}
             >
@@ -164,17 +198,72 @@ const Header = () => {
               edge="start"
               color="inherit"
               onClick={openMenu}
-              sx={{ color: "white" }}
+              sx={{ color: "var(--white)" }}
             >
               <MenuIcon />
             </IconButton>
 
-            <Menu open={Boolean(anchorNav)} onClose={closeMenu}>
+            <Menu
+              open={Boolean(anchorNav)}
+              onClose={closeMenu}
+              sx={{
+                "& .MuiPaper-root": {
+                  backgroundColor: "var(--dark-primary)",
+                  color: "var(--white)",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
               <MenuList>
-                <MenuItem onClick={closeMenu}>Home</MenuItem>
-                <MenuItem onClick={() => { closeMenu(); scrollToServices(); }}>Serviços</MenuItem>
-                <MenuItem onClick={closeMenu}>Equipe</MenuItem>
-                <MenuItem onClick={closeMenu}>Contato</MenuItem>
+                <MenuItem
+                  onClick={() => { closeMenu(); scrollToCarousel(); }} // Adicionado aqui
+                  sx={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 600,
+                    "&:hover": {
+                      backgroundColor: "var(--dark)",
+                    },
+                  }}
+                >
+                  Home
+                </MenuItem>
+                <MenuItem
+                  onClick={() => { closeMenu(); scrollToServices(); }}
+                  sx={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 600,
+                    "&:hover": {
+                      backgroundColor: "var(--dark)",
+                    },
+                  }}
+                >
+                  Serviços
+                </MenuItem>
+                <MenuItem
+                  onClick={() => { closeMenu(); scrollToTeam(); }}
+                  sx={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 600,
+                    "&:hover": {
+                      backgroundColor: "var(--dark)",
+                    },
+                  }}
+                >
+                  Equipe
+                </MenuItem>
+                <MenuItem
+                  onClick={closeMenu}
+                  sx={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 600,
+                    "&:hover": {
+                      backgroundColor: "var(--dark)",
+                    },
+                  }}
+                >
+                  Contato
+                </MenuItem>
               </MenuList>
             </Menu>
           </Box>
@@ -183,10 +272,10 @@ const Header = () => {
 
       {/* Container abaixo do header */}
       <Box
+        ref={carouselRef} // Ref associada ao carrossel
         sx={{
           width: "100%",
-          height: "600px",
-          border: "1px solid #000",
+          height: "800px", // Aumentei a altura para 800px
           borderRadius: "8px",
           display: "flex",
           justifyContent: "center",
@@ -194,19 +283,19 @@ const Header = () => {
           marginTop: "100px",
           padding: 0,
           boxSizing: "border-box",
-          marginBottom: "50px",
+          marginBottom: 0,
           overflow: "hidden",
         }}
       >
         {/* Carrossel de fotos */}
-        <Box sx={{ width: "100%", height: "100%" }}>
+        <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
           <Slider {...carouselSettings}>
             {carouselImages.map((image, index) => (
               <Box key={index} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <img
                   src={image}
                   alt={`Slide ${index + 1}`}
-                  style={{ width: "100%", height: "600px", objectFit: "cover", borderRadius: "8px" }}
+                  style={{ width: "100%", height: "800px", objectFit: "cover", borderRadius: "8px" }} // Ajustei a altura para 800px
                 />
               </Box>
             ))}
@@ -215,16 +304,37 @@ const Header = () => {
       </Box>
 
       {/* Seção de Serviços */}
-      <Container ref={servicesRef} sx={{ py: 8 }}> {/* Adiciona a ref aqui */}
-        <Typography variant="h3" align="center" sx={{ fontWeight: "bold", mb: 8, color: "#333" }}>
+      <Box
+        ref={servicesRef}
+        sx={{
+          width: "100%",
+          minHeight: "100vh",
+          backgroundColor: "var(--light-grey)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          py: 8,
+          marginTop: 0,
+        }}
+      >
+        <Typography
+          variant="h3"
+          align="center"
+          sx={{ fontWeight: "bold", mb: 4, color: "#105f85", fontFamily: "'Raleway', sans-serif" }}
+        >
           Nossos Serviços
         </Typography>
-        <Grid container spacing={8}> {/* Espaçamento entre os cards aumentado para 8 */}
+        <Grid
+          container
+          spacing={4} // Diminuído o espaçamento entre os cards
+          sx={{ maxWidth: "var(--container-width-lg)", margin: "0 auto" }}
+        >
           {services.map((service, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card
                 sx={{
-                  height: "400px", // Aumentei a altura do card
+                  height: "400px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: 3,
@@ -232,28 +342,28 @@ const Header = () => {
                   "&:hover": {
                     transform: "scale(1.05)",
                   },
-                  backgroundColor: "#f9f9f9",
+                  backgroundColor: "var(--white)",
                 }}
               >
                 <CardContent sx={{ flexGrow: 1, textAlign: "center", padding: 3 }}>
                   <Typography variant="h4" sx={{ mb: 3 }}>
                     {service.icon}
                   </Typography>
-                  <Typography variant="h5" component="h2" sx={{ fontWeight: "bold", mb: 3 }}>
+                  <Typography variant="h5" component="h2" sx={{ fontWeight: "bold", mb: 3, color: "var(--dark-primary)" }}>
                     {service.title}
                   </Typography>
-                  <Typography variant="body1" sx={{ mb: 3 }}>
+                  <Typography variant="body1" sx={{ mb: 3, color: "var(--dark-grey)" }}>
                     {service.description}
                   </Typography>
                   {expandedCard === index && (
-                    <Typography variant="body2" sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ mb: 3, color: "var(--grey)" }}>
                       Mais detalhes sobre o serviço...
                     </Typography>
                   )}
                   <Button
                     variant="contained"
                     color="primary"
-                    sx={{ mt: 3 }}
+                    sx={{ mt: 3, backgroundColor: "var(--dark)", "&:hover": { backgroundColor: "var(--light-dark)" } }}
                     onClick={() => handleExpandCard(index)}
                   >
                     {expandedCard === index ? "Ver Menos" : "Saiba Mais"}
@@ -263,8 +373,119 @@ const Header = () => {
             </Grid>
           ))}
         </Grid>
-      </Container>
-    </>
+      </Box>
+
+      {/* Seção da Equipe */}
+      <Box
+        ref={teamRef}
+        sx={{
+          width: "100%", // Alterado de 100vw para 100%
+          height: "100vh",
+          backgroundColor: "#f3f3f3",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={feedback}
+          alt="Nossa Equipe"
+          style={{
+            width: "100%", // Alterado de 100vw para 100%
+            height: "100vh",
+            objectFit: "cover",
+            transform: "scale(0.6)", // Ajuste o valor para diminuir ou aumentar o zoom
+          }}
+        />
+      </Box>
+
+      {/* Footer */}
+      <Box
+        sx={{
+          width: "100%",
+          backgroundColor: "var(--dark-primary)",
+          color: "var(--white)",
+          padding: "40px 20px",
+          textAlign: "center",
+          borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+        }}
+      >
+        {/* Contato com WhatsApp */}
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+            Entre em contato conosco:
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+            }}
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+              alt="WhatsApp"
+              style={{ width: "24px", height: "24px" }}
+            />
+            <Typography variant="body1">
+              <a
+                href="https://wa.me/5521983839914"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--white)", textDecoration: "none" }}
+              >
+                (21) 98383-9914
+              </a>
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Redes Sociais */}
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+            Siga-nos nas redes sociais:
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 3,
+            }}
+          >
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                alt="Facebook"
+                style={{ width: "32px", height: "32px" }}
+              />
+            </a>
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                alt="Instagram"
+                style={{ width: "32px", height: "32px" }}
+              />
+            </a>
+          </Box>
+        </Box>
+
+        {/* Créditos */}
+        <Typography variant="body2" sx={{ opacity: 0.8 }}>
+          Desenvolvido por © Pedro Lopes :)
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
