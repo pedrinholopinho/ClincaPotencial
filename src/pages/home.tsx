@@ -182,7 +182,7 @@ const Header = () => {
     overflow: "hidden",
   }}
 >
-  <div inert={anchorNav ? "true" : undefined}>
+  <div aria-hidden={anchorNav ? "true" : undefined}>
     <Slider {...carouselSettings}>
       {carouselImages.map((image, index) => (
         <Box key={index}>

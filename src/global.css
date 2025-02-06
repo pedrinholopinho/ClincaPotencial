@@ -32,3 +32,6 @@ html, body {
 img {
   border-radius: 0 !important;
 }
+.my-slider {
+  max-width: 80%;
+}

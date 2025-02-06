@@ -98,15 +98,21 @@ const Equipe = forwardRef<HTMLDivElement>((_props, ref) => {
       <Typography variant="h3" sx={{ fontWeight: "bold", mb: 4, color: "#105f85" }}>
         Nossa Equipe
       </Typography>
-      <Slider {...settings} style={{ maxWidth: "80%" }}>
+      <Slider {...settings} className="my-slider">
         {teamMembers.map((member, index) => (
-          <Box key={index} sx={{ textAlign: "center", padding: 2 }}>
+          <Box
+            key={index}
+            sx={{
+              textAlign: "center",
+              padding: 2,
+              maxWidth: "250px", // Ajuste a largura conforme necessário
+            }}
+          >
             <img
               src={member.image}
               alt={member.name}
               style={{
                 width: "100%",
-                maxWidth: "250px",
                 height: "250px",
                 borderRadius: "50%",
                 objectFit: "cover",
