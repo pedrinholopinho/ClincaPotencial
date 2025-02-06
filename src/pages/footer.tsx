@@ -36,12 +36,12 @@ const Footer = () => {
             />
             <Typography variant="body1">
               <a
-                href="https://wa.me/5521983839914"
+                href="https://wa.me/5521983099482"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--white)", textDecoration: "none" }}
               >
-                (21) 98383-9914
+                (21) 98309-9482
               </a>
             </Typography>
           </Box>
@@ -55,7 +55,7 @@ const Footer = () => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <LocationOnIcon sx={{ color: "var(--white)" }} />
             <Typography variant="body1">
-              Rua 17 de novembro, lote 20, quadra 13
+            Av. Carlos Marighella, Shopping 13, lojas 203 e 204 - São Bento da Lagoa, Itaipuaçu
             </Typography>
           </Box>
         </Box>
@@ -67,7 +67,7 @@ const Footer = () => {
           </Typography>
           <Box sx={{ display: "flex", gap: 3 }}>
             <a
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/profile.php?id=61553329927286"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -78,7 +78,7 @@ const Footer = () => {
               />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/potencialitaipuacu/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -103,7 +103,7 @@ const Footer = () => {
         }}
       >
         <Typography variant="body2">
-          Desenvolvido por © Pedro Lopes :)
+        © 2025 Todos os direitos reservados | Clínica Potencial 
         </Typography>
       </Box>
     </Box>
