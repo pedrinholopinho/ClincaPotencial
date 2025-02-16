@@ -176,26 +176,22 @@ const Header = () => {
 
       {/* Carrossel */}
       <Box
-  ref={carouselRef}
-  sx={{
-    width: "100%",
-    height: { xs: "50vh", sm: "60vh", md: "70vh", lg: "80vh" }, // Ajuste a altura para dispositivos móveis
-    marginTop: { xs: "10vh", sm: "10vh", md: "10vh", lg: "10vh" },
-    overflow: "hidden",
-  }}
->
+        ref={carouselRef}
+        sx={{
+          width: "100%",
+          height: { xs: "25vh", sm: "45vh", md: "55vh", lg: "65vh" },
+          marginTop: { xs: "10vh", sm: "10vh", md: "10vh", lg: "10vh" },
+          overflow: "hidden",
+        }}
+      >
   <div aria-hidden={anchorNav ? "true" : undefined}>
     <Slider {...carouselSettings}>
       {carouselImages.map((image, index) => (
-        <Box key={index} sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Box key={index} sx={{ height: "100%" }}>
           <img
             src={image}
             alt={`Slide ${index + 1}`}
-            style={{ 
-              width: "100%", 
-              height: "100%", 
-              objectFit: "contain", // Garante que a imagem apareça inteira
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </Box>
       ))}
