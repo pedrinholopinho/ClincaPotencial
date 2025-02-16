@@ -11,6 +11,8 @@ import './scroll.css';
 import Footer from "../pages/footer";
 import Equipe from "./equipe";
 import Servico from "./servico"; // Importe o novo componente Servico
+import DuvidasFrequentes from "./duvidas"; // Importe o novo componente DuvidasFrequentes
+
 
 // Importe as imagens da pasta assets/images
 import teste from "../assets/images/teste.jpeg";
@@ -202,9 +204,16 @@ const Header = () => {
         <Servico servicesRef={servicesRef} />
       </Box>
 
+     
+
       {/* Seção da Equipe */}
       <Box sx={{ margin: 0, padding: 0 }}>
         <Equipe ref={teamRef} />
+      </Box>
+
+       {/* Seção de Dúvidas Frequentes */}
+       <Box sx={{ margin: 0, padding: 0 }}>
+        <DuvidasFrequentes />
       </Box>
 
       {/* Footer */}
