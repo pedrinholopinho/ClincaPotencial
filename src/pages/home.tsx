@@ -179,25 +179,25 @@ const Header = () => {
         ref={carouselRef}
         sx={{
           width: "100%",
-          height: { xs: "300px", sm: "400px", md: "500px", lg: "600px" },
-          marginTop: "100px",
+          height: { xs: "25vh", sm: "45vh", md: "55vh", lg: "65vh" },
+          marginTop: { xs: "10vh", sm: "10vh", md: "10vh", lg: "10vh" },
           overflow: "hidden",
         }}
       >
-        <div aria-hidden={anchorNav ? "true" : undefined}>
-          <Slider {...carouselSettings}>
-            {carouselImages.map((image, index) => (
-              <Box key={index}>
-                <img
-                  src={image}
-                  alt={`Slide ${index + 1}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              </Box>
-            ))}
-          </Slider>
-        </div>
-      </Box>
+  <div aria-hidden={anchorNav ? "true" : undefined}>
+    <Slider {...carouselSettings}>
+      {carouselImages.map((image, index) => (
+        <Box key={index} sx={{ height: "100%" }}>
+          <img
+            src={image}
+            alt={`Slide ${index + 1}`}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </Box>
+      ))}
+    </Slider>
+  </div>
+</Box>
 
       {/* Seção de Serviços */}
       <Box sx={{ margin: 0, padding: 0 }}>
