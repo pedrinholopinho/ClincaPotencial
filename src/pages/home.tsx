@@ -9,7 +9,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import './scroll.css';
 import Footer from "../pages/footer";
-import Equipe from "./equipe";  
+import Equipe from "./equipe";
 import Servico from "./servico"; // Importe o novo componente Servico
 
 // Importe as imagens da pasta assets/images
@@ -174,34 +174,38 @@ const Header = () => {
 
       {/* Carrossel */}
       <Box
-  ref={carouselRef}
-  sx={{
-    width: "100%",
-    height: { xs: "300px", sm: "400px", md: "500px", lg: "600px" },
-    marginTop: "100px",
-    overflow: "hidden",
-  }}
->
-  <div aria-hidden={anchorNav ? "true" : undefined}>
-    <Slider {...carouselSettings}>
-      {carouselImages.map((image, index) => (
-        <Box key={index}>
-          <img
-            src={image}
-            alt={`Slide ${index + 1}`}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </Box>
-      ))}
-    </Slider>
-  </div>
-</Box>
+        ref={carouselRef}
+        sx={{
+          width: "100%",
+          height: { xs: "300px", sm: "400px", md: "500px", lg: "600px" },
+          marginTop: "100px",
+          overflow: "hidden",
+        }}
+      >
+        <div aria-hidden={anchorNav ? "true" : undefined}>
+          <Slider {...carouselSettings}>
+            {carouselImages.map((image, index) => (
+              <Box key={index}>
+                <img
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </Box>
+            ))}
+          </Slider>
+        </div>
+      </Box>
 
       {/* Seção de Serviços */}
-      <Servico servicesRef={servicesRef} />
+      <Box sx={{ margin: 0, padding: 0 }}>
+        <Servico servicesRef={servicesRef} />
+      </Box>
 
       {/* Seção da Equipe */}
-      <Equipe ref={teamRef} />
+      <Box sx={{ margin: 0, padding: 0 }}>
+        <Equipe ref={teamRef} />
+      </Box>
 
       {/* Footer */}
       <Footer />
