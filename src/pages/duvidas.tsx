@@ -35,7 +35,7 @@ const DuvidasFrequentes = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        pt: { xs: 2, md: 4 },
+        pt: { xs: 7, md: 7 },
         pb: { xs: 4, md: 8 },
         px: { xs: 2, md: 0 },
       }}

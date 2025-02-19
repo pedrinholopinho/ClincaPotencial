@@ -143,11 +143,12 @@ const Equipe = forwardRef<HTMLDivElement>((_props, ref) => {
                 alt={member.name}
                 style={{
                   width: "100%",
-                  height: "250px",
+                  height: "150%",
                   borderRadius: "50%",
                   objectFit: "cover",
                   marginBottom: "10px",
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+                  boxShadow: "0 1px 1px  #2196F3",
+                  
                 }}
               />
               <Typography variant="h6" sx={{ 
