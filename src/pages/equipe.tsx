@@ -30,7 +30,7 @@ const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     onClick={onClick}
     sx={{
       position: "absolute",
-      left: "-50px",
+      left: { xs: "-35px", sm: "-50px" },
       top: "50%",
       transform: "translateY(-50%)",
       zIndex: 1,
@@ -47,7 +47,7 @@ const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     onClick={onClick}
     sx={{
       position: "absolute",
-      right: "-50px",
+      right: { xs: "-35px", sm: "-50px" },
       top: "50%",
       transform: "translateY(-50%)",
       zIndex: 1,
@@ -67,16 +67,25 @@ const Equipe = forwardRef<HTMLDivElement>((_props, ref) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    centerMode: true, // Adicionado para melhor centralização
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 2, slidesToScroll: 1 },
+        settings: { 
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          centerMode: true
+        },
       },
       {
         breakpoint: 600,
-        settings: { slidesToShow: 1, slidesToScroll: 1 },
+        settings: { 
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true
+        },
       },
     ],
   };
@@ -93,41 +102,69 @@ const Equipe = forwardRef<HTMLDivElement>((_props, ref) => {
         justifyContent: "center",
         alignItems: "center",
         padding: "40px 20px",
+        boxSizing: "border-box",
       }}
     >
-      <Typography variant="h3" sx={{ fontWeight: "bold", mb: 4, color: "#105f85" }}>
+      <Typography variant="h3" sx={{ 
+        fontWeight: "bold", 
+        mb: 4, 
+        color: "#105f85",
+        textAlign: "center",
+        fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
+      }}>
         Nossa Equipe
       </Typography>
-      <Slider {...settings} className="my-slider">
-        {teamMembers.map((member, index) => (
-          <Box
-            key={index}
-            sx={{
-              textAlign: "center",
-              padding: 2,
-              maxWidth: "250px", // Ajuste a largura conforme necessário
-            }}
-          >
-            <img
-              src={member.image}
-              alt={member.name}
-              style={{
-                width: "100%",
-                height: "250px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                marginBottom: "10px",
+
+      <Box sx={{ 
+        width: "100%",
+        maxWidth: "1200px",
+        position: "relative",
+        padding: { xs: "0 20px", sm: "0 40px" }
+      }}>
+        <Slider {...settings}>
+          {teamMembers.map((member, index) => (
+            <Box
+              key={index}
+              sx={{
+                textAlign: "center",
+                padding: 2,
+                maxWidth: "250px !important",
+                margin: "0 auto",
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.05)"
+                }
               }}
-            />
-            <Typography variant="h6" sx={{ fontWeight: "bold", color: "#333" }}>
-              {member.name}
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#666" }}>
-              {member.role}
-            </Typography>
-          </Box>
-        ))}
-      </Slider>
+            >
+              <img
+                src={member.image}
+                alt={member.name}
+                style={{
+                  width: "100%",
+                  height: "250px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  marginBottom: "10px",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+                }}
+              />
+              <Typography variant="h6" sx={{ 
+                fontWeight: "bold", 
+                color: "#333",
+                fontSize: { xs: "1rem", sm: "1.1rem" }
+              }}>
+                {member.name}
+              </Typography>
+              <Typography variant="body1" sx={{ 
+                color: "#666",
+                fontSize: { xs: "0.9rem", sm: "1rem" }
+              }}>
+                {member.role}
+              </Typography>
+            </Box>
+          ))}
+        </Slider>
+      </Box>
     </Box>
   );
 });

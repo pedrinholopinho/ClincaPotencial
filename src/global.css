@@ -38,3 +38,11 @@ img {
 .my-slider {
   max-width: 80%;
 }
+.slick-track {
+  display: flex !important;
+  align-items: center !important; /* Alinha slides verticalmente */
+}
+
+.slick-slide {
+  float: none !important; /* Remove flutuação padrão */
+}
