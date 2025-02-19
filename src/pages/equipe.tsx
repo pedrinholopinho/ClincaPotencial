@@ -95,14 +95,13 @@ const Equipe = forwardRef<HTMLDivElement>((_props, ref) => {
       ref={ref}
       sx={{
         width: "100%",
-        minHeight: "100vh",
         backgroundColor: "#f3f3f3",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: "40px 20px",
-        boxSizing: "border-box",
+        padding: "40px 40px", // Reduzido de 40px para 20px
+        boxSizing: "border-box"
       }}
     >
       <Typography variant="h3" sx={{ 
@@ -119,7 +118,10 @@ const Equipe = forwardRef<HTMLDivElement>((_props, ref) => {
         width: "100%",
         maxWidth: "1200px",
         position: "relative",
-        padding: { xs: "0 20px", sm: "0 40px" }
+        padding: { xs: "0 20px", sm: "0 40px",
+        
+        }
+        
       }}>
         <Slider {...settings}>
           {teamMembers.map((member, index) => (
